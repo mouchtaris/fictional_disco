@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.12)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-# set(CMAKE_C_COMPILER "gcc-4.2")
-set(CMAKE_CXX_COMPILER /usr/bin/clang++)
+set(CMAKE_CXX_COMPILER /usr/bin/g++)
+# set(CMAKE_CXX_COMPILER /usr/bin/clang++)
 
 
 # set_property(TARGET tgt PROPERTY CXX_STANDARD 11)
@@ -17,6 +17,7 @@ add_library(libtpf STATIC
     tpf/bind.cpp
     tpf/templ.cpp
     tpf/cons.cpp
+    tpf/tupletools.cpp
 )
 
 ###

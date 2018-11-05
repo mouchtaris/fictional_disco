@@ -12,17 +12,15 @@ namespace tpf {
 
     template <
         typename PF,
-        typename Argpack,
-        template <typename, typename...> typename applicator = apply
+        typename Argpack
     >
     struct apply_tuple;
     template <
         typename PF,
-        typename... Args,
-        template <typename, typename...> typename applicator
+        typename... Args
     >
-    struct apply_tuple<PF, std::tuple<Args...>, applicator> {
-        using application = applicator<PF, Args...>;
+    struct apply_tuple<PF, std::tuple<Args...>> {
+        using application = apply<PF, Args...>;
         using result = typename application::result;
     };
 
@@ -51,10 +49,10 @@ namespace tpf {
         typename PF,
         typename Argpack
     >
-    auto rttf(Argpack&& argpack)
+    auto rttf(Argpack argpack)
     {
         return std::apply(
-            apply_tuple<PF, Argpack>::application::rt,
+            std::mem_fn(apply_tuple<PF, Argpack>::application::rt),
             std::forward<Argpack>(argpack)
         );
     }

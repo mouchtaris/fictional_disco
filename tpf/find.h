@@ -12,14 +12,16 @@ namespace tpf {
         typename... Ts
     >
     struct apply<find<PF>, Ts...> {
+        using _select = select<PF>;
+
         using result = std::tuple_element_t<
             0, 
-            f<select<PF>, Ts...>
+            f<_select, Ts...>
         >;
 
-        static T const& rt(std::tuple<Ts...> t)
+        static auto rt(std::tuple<Ts...> t)
         {
-            
+            return std::get<0>(rtf<_select>(t));
         }
     };
 
