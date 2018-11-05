@@ -1,5 +1,6 @@
 #pragma once
 #include <tuple>
+#include <functional>
 
 namespace tpf {
 
@@ -21,7 +22,8 @@ namespace tpf {
         template <typename, typename...> typename applicator
     >
     struct apply_tuple<PF, std::tuple<Args...>, applicator> {
-        using result = typename applicator<PF, Args...>::result;
+        using application = applicator<PF, Args...>;
+        using result = typename application::result;
     };
 
     template <
@@ -29,5 +31,32 @@ namespace tpf {
         typename... Args
     >
     using f = typename apply<PF, Args...>::result;
+
+    template <
+        typename PF,
+        typename Argpack
+    >
+    using tf = typename apply_tuple<PF, Argpack>::result;
+
+    template <
+        typename PF,
+        typename... Args
+    >
+    auto rtf(Args&&... args)
+    {
+        return apply<PF, Args...>::rt(std::forward<Args>(args)...);
+    }
+
+    template <
+        typename PF,
+        typename Argpack
+    >
+    auto rttf(Argpack&& argpack)
+    {
+        return std::apply(
+            apply_tuple<PF, Argpack>::application::rt,
+            std::forward<Argpack>(argpack)
+        );
+    }
 
 }

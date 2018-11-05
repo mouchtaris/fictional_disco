@@ -16,6 +16,11 @@ namespace tpf {
             0, 
             f<select<PF>, Ts...>
         >;
+
+        static T const& rt(std::tuple<Ts...> t)
+        {
+            
+        }
     };
 
 }

@@ -44,9 +44,10 @@ int main(int, char**)
     auto user = tuple { move(email), move(pass) };
 
     using get_email = tpf::find<is_valtype<Email>>;
-    using found = tpf::f<get_email, decltype(user)>;
+    using found = tpf::tf<get_email, decltype(user)>;
     cout << pig<decltype(user)>::val << endl
-        << pig<found>::val << endl;
+        << pig<found>::val << endl
+        << tpf::rttf<get_email>(user) << endl;
 
     return 0;
 }
