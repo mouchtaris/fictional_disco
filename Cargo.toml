@@ -1,0 +1,6 @@
+[package]
+name = "panosrs"
+version = "0.1.0"
+authors = ["Nikos Mouchtaris <nikolaos.mouchtaris@nike.com>"]
+
+[dependencies]
