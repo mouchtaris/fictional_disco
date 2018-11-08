@@ -12,24 +12,32 @@ set(CMAKE_CXX_STANDARD 20)
 ###
 # TPF
 add_library(libtpf STATIC
-    tpf/select.cpp
-    tpf/find.cpp
-    tpf/bind.cpp
-    tpf/templ.cpp
-    tpf/cons.cpp
-    tpf/tupletools.cpp
+    src/tpf/libtpf.cpp
+#    tpf/select.cpp
+#    tpf/find.cpp
+#    tpf/bind.cpp
+#    tpf/templ.cpp
+#    tpf/cons.cpp
+#    tpf/tupletools.cpp
+#    tpf/comp.cpp
+#    tpf/get.cpp
 )
 
 ###
 # LibPanos
-add_library(libpanos STATIC libpanos.cpp)
+add_library(libpanos STATIC
+    src/libpanos.cpp
+)
 
 ###
 # Main
-add_executable(panos panos.cpp)
+add_executable(panos 
+    src/panos.cpp
+)
 # libs
 target_link_libraries(panos libpanos)
 target_link_libraries(panos libtpf)
+
 # includes
 target_include_directories(libpanos
     PRIVATE /tmp/lalala
