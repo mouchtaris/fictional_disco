@@ -1,0 +1,8 @@
+https://stackoverflow.com/questions/24618233/why-does-rust-want-to-borrow-a-variable-as-mutable-more-than-once-at-a-time
+https://stackoverflow.com/questions/30882065/immutable-reference-after-mutable-borrow
+https://stackoverflow.com/questions/39622783/how-can-i-do-a-mutable-borrow-in-a-for-loop
+https://stackoverflow.com/questions/45108086/why-cant-a-mutable-variable-be-used-when-a-mutable-reference-to-that-variable-c
+https://stackoverflow.com/questions/51511114/borrowing-mutable-twice-while-using-the-same-variable
+https://stackoverflow.com/questions/13626143/how-to-upgrade-rubygems
+
+

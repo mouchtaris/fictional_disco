@@ -27,6 +27,8 @@ add_library(libtpf STATIC
 # LibPanos
 add_library(libpanos STATIC
     src/libpanos.cpp
+    src/ser.cpp
+    src/test_ser.cpp
 )
 
 ###
