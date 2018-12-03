@@ -11,25 +11,13 @@ set(CMAKE_CXX_STANDARD 20)
 
 ###
 # TPF
-add_library(libtpf STATIC
-    src/tpf/libtpf.cpp
-#    tpf/select.cpp
-#    tpf/find.cpp
-#    tpf/bind.cpp
-#    tpf/templ.cpp
-#    tpf/cons.cpp
-#    tpf/tupletools.cpp
-#    tpf/comp.cpp
-#    tpf/get.cpp
-)
-
 ###
 # LibPanos
-add_library(libpanos STATIC
-    src/libpanos.cpp
-    src/ser.cpp
-    src/test_ser.cpp
-)
+# add_library(libpanos STATIC
+#     src/libpanos.cpp
+#     src/ser.cpp
+#     src/test_ser.cpp
+# )
 
 ###
 # Main
@@ -37,16 +25,15 @@ add_executable(panos
     src/panos.cpp
 )
 # libs
-target_link_libraries(panos libpanos)
-target_link_libraries(panos libtpf)
+#target_link_libraries(panos libpanos)
 
 # includes
-target_include_directories(libpanos
-    PRIVATE /tmp/lalala
-)
-target_compile_definitions( libpanos
-	PRIVATE	HELLO_WHO="PRIVATE"
-	INTERFACE HELLO_WHO="INTER"
-)
-#target_compile_options(libhi -Wall -Wextra -pedantic -std=c++1z)
+#target_include_directories(libpanos
+#    PRIVATE /tmp/lalala
+#)
+#target_compile_definitions( libpanos
+#	PRIVATE	HELLO_WHO="PRIVATE"
+#	INTERFACE HELLO_WHO="INTER"
+#)
+target_compile_options(panos PRIVATE -Wall -Wextra -pedantic -std=c++1z)
 #target_compile_options(hi -Wall -Wextra -pedantic -std=c++1z)
