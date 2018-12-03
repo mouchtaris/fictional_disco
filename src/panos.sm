@@ -1,0 +1,28 @@
+# class Account
+#     .email: String
+#     .password: List of Byte
+# end
+# 
+#class Account
+#    def initialize(
+#        @email: String,
+#        @password: List of Byte
+#    )
+#    end
+#
+#    attr_reader :email
+#    attr_reader :password
+#end
+class Account
+    def initialize(
+        email: String,
+        password: List of Byte
+    )
+        @email = email
+        @password = password
+    end
+end
+
+acc = Account.new(email: "Hi", password: [1, 2])
+print "Hello, "
+puts acc.email

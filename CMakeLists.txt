@@ -28,9 +28,9 @@ add_executable(panos
 #target_link_libraries(panos libpanos)
 
 # includes
-#target_include_directories(libpanos
-#    PRIVATE /tmp/lalala
-#)
+target_include_directories(panos
+    PRIVATE src/
+)
 #target_compile_definitions( libpanos
 #	PRIVATE	HELLO_WHO="PRIVATE"
 #	INTERFACE HELLO_WHO="INTER"
