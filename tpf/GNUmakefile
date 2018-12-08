@@ -1,6 +1,6 @@
 all:
 	make -C _build ${MAKE_FLAGS}
-	_build/main
+	_build/test
 
 conf:
 	rm -rfv _build
