@@ -18,8 +18,10 @@ target_include_directories(Tpf
 add_library(Tpf_Test STATIC
     test/test.cpp
     test/test_def.cpp
+    test/fixture/tpfs.cpp
 )
 target_link_libraries(Tpf_Test
     PUBLIC
         Tpf
+        _compile_options
     )

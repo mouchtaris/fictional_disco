@@ -1,5 +1,32 @@
 #pragma once
-namespace __MODULE__
+#include "tpf.h"
+#include <type_traits>
+namespace Tpf
 {
-    typedef int def;
+    template <
+        typename...
+    >
+    struct tpf;
+
+
+
+    struct def;
+    template <typename...> struct Definition;
+
+    template <
+        typename... Def
+    >
+    struct tpf<def, Def...>
+    {
+        using type = Definition<Def...>;
+    };
+
+    template <
+        typename... Def,
+        typename F
+    >
+    struct tpf<Definition<Def...>, F>
+    {
+        using type = Tpf::apply<F, Def...>;
+    };
 }
