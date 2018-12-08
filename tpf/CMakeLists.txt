@@ -6,6 +6,7 @@
 #
 set( test_src 
     "test/main.cpp"
+    "test/context.cpp"
 )
 
 add_executable(test ${test_src})
