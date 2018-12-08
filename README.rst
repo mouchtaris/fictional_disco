@@ -1,3 +1,6 @@
+README
+======
+
 vim: et ts=2 sw=2
 
 Links
@@ -19,7 +22,7 @@ https://stackoverflow.com/questions/16398937/cmake-and-finding-other-projects-an
 
 CMake
 
-```cmake
+
 # vim: et ts=4 sw=4
 #
 # Hello, user.
@@ -29,7 +32,7 @@ CMake
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 cmake_minimum_required(VERSION 3.12)
-```
+
 
 
 Constructors
