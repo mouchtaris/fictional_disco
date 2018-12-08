@@ -7,42 +7,34 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_compile_options(-Wall -Wextra -pedantic)
 
 ###
+### Tpf
+###
+set( tpf_src
+    "[
+add_library( libtpf STATIC
+    src/tpf.cpp
+)
+target_compile_definitions( libtpf
+    INTERFACE
+    _TPF__USING
+    PRIVATE
+        _TPF__BUILDING
+        _MOD_BEGIN='namespace test {'
+        _MOD_END='}'
+)
+
+###
 ### Binary Targets
 ###
-add_library( tpf STATIC
-    src/tpf/__module.cpp
-    src/tpf/tpf.cpp
-    test/tpf/test_tpf.cpp
-)
 
-add_executable( panos
-    src/panos.cpp
-)
-target_link_libraries( panos
-    tpf
-)
-
-add_library( test STATIC
-    test/test.cpp
-)
-target_include_directories( test
-    PUBLIC test
-)
+#add_executable( panos
+#    src/panos.cpp
+#)
+#target_link_libraries( panos
+#    tpf
+#)
 
 
-###
-### Build specification and Usage Requirements
-###
-target_compile_definitions(tpf
-    PRIVATE	_TPF__BUILDING
-    INTERFACE _TPF__USING
-)
-include_directories( AFTER
-    src
-)
-
-
-##  set(CMAKE_INCLUDE_CURRENT_DIR ON)
 ##  set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ##  set(CMAKE_CXX_COMPILER /usr/bin/g++)
 ##  # set(CMAKE_CXX_COMPILER /usr/bin/clang++)
