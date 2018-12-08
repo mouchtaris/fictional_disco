@@ -1,4 +1,5 @@
-.. AIT:FD documentation master file, created by
+..  vim: et ts=2 sw=2
+   AIT:FD documentation master file, created by
    sphinx-quickstart on Sat Dec  8 15:29:23 2018.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -10,6 +11,7 @@ Welcome to AIT:FD's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   cmake
 
 
 Indices and tables
