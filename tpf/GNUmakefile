@@ -1,9 +1,9 @@
 all:
-	make -C _build ${MAKE_FLAGS}
+	cmake --build _build ${MAKE_FLAGS}
 	_build/test
 
 conf:
 	rm -rfv _build
 	mkdir -pv _build
-	cd _build && cmake -G 'Unix Makefiles' ../
+	cd _build && cmake -G 'Ninja' ../
 	ln -sfv _build/compile_commands.json ./
