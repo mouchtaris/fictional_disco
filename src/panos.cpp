@@ -1,10 +1,7 @@
-#include "scafold_tokens.h"
-#include <iostream>
+#include "tpf.h"
 
 int main(int, char**)
 {
-    for (auto&& token: scafold::make_token_stream())
-        std::cout
-            << "Token[" << (uint16_t) type(token) << ": " << value(token) << "]\n";
+    tpf::_u__module();
     return 0;
 }

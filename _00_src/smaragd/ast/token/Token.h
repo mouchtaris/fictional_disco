@@ -6,7 +6,7 @@
 namespace smaragd::ast::token
 {
     struct Token {
-        token::type type;
+        std::string type;
         std::string value;
     };
 
@@ -16,7 +16,7 @@ namespace smaragd::ast::token
         return token.value;
     }
 
-    inline auto type(Token const& token) -> type
+    inline auto type(Token const& token) -> std::string const&
     {
         return token.type;
     }

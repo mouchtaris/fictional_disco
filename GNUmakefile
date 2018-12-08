@@ -1,5 +1,5 @@
 all:
-	make -C _build
+	make -C _build ${MAKE_FLAGS}
 	_build/panos
 conf:
 	rm -rfv _build

@@ -13,6 +13,9 @@
 #    attr_reader :email
 #    attr_reader :password
 #end
+
+# classexpr := 
+#   KW_CLASS ID
 class Account
     def initialize(
         email: String,
