@@ -5,35 +5,34 @@
 # Welcome to Aperture IT.
 #
 
+cmake_minimum_required(VERSION 3.12)
+
+set(Module Tpf)
+
+add_library(${Module}_Lib STATIC
+    src/def.cpp
+)
+target_include_directories(${Module}_Lib
+    PUBLIC
+        /tmp/shala
+    )
+
+add_library(${Module}_Test STATIC
+    test/test.cpp
+    test/test_def.cpp
+)
+target_link_libraries(${Module}_Test
+    PUBLIC
+        ${Module}_Lib
+    )
+
 ###
 ### TMP
 ###
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-cmake_minimum_required(VERSION 3.12)
 add_compile_definitions(
     __MODULE__=tpf
 )
 ###
 ### // TMP
 ###
-
-
-
-
-set( src
-    "src/def.cpp"
-)
-
-add_library( lib STATIC ${src} )
-
-
-set( test_src
-    "test/test.cpp"
-    "test/test_def.cpp"
-    "test/main.cpp"
-)
-
-add_executable(test ${test_src})
-target_link_libraries(test lib)
-target_include_directories(test PRIVATE src)
-

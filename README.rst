@@ -17,3 +17,5 @@ https://stackoverflow.com/questions/31566773/c-with-git-and-cmake-how-to-build-s
 https://stackoverflow.com/questions/11524201/how-to-add-a-cmake-custom-target-for-all-submodules
 https://www.google.com/search?q=cmake+how+to+include+other+cmake+projects&ie=utf-8&oe=utf-8&client=firefox-b-ab
 https://stackoverflow.com/questions/16398937/cmake-and-finding-other-projects-and-their-dependencies
+
+https://github.com/boostcon/cppnow_presentations_2017

@@ -5,15 +5,12 @@
 # Welcome to Aperture IT.
 #
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 cmake_minimum_required(VERSION 3.12)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# add_library(Foo foo.cpp)
-# target_link_libraries(Foo PRIVATE Bar::Bar)
-# 
-# # Construtors
-# 
+add_subdirectory(tpf)
 
-# add_compile_definitions(
-#     __MODULE__=tpf
-# )
+add_executable(test
+    test/main.cpp
+    )
+target_link_libraries(test PRIVATE Tpf_Test)

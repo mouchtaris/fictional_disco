@@ -62,3 +62,12 @@ Member functions
       cxx_range_for
   )
 
+  target_link_libraries(Foo
+    PUBLIC Bar::Bar               # => {INTERFACE_,}LINK_LIBRARIES
+                                  # INTERFACE_<property> of Bar::Bar 
+                                  #   => {INTERFACE),}<property> of Foo
+    PRIVATE Cow::Cow              # => LINK_LIBRARIES
+                                  # INTERFACE_<property> of Cow::Cow
+                                  #   => <property> of Foo
+  )
+
