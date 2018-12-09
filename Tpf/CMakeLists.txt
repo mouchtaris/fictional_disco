@@ -14,6 +14,10 @@ target_include_directories(Tpf
     PUBLIC
         src/
     )
+target_link_libraries(Tpf
+    PUBLIC
+        _compile_options
+    )
 
 add_library(Tpf_Test STATIC
     test/test.cpp
