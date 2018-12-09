@@ -54,7 +54,16 @@ module Sms
   def cli_new_fun
     ns = arg_shift
     name = arg_shift
-    puts "#{ns}/src/#{name}"
+    basepath = "#{ns}/src/#{name}"
+    dirpath = File.dirname(basepath)
+    sourcepath = "#{basepath}.cpp"
+    headerpath = "#{basepath}.h"
+    pp \
+      basepath: basepath,
+      dirpath: dirpath,
+      sourcepath: sourcepath,
+      headerpath: headerpath,
+      true: true
   end
 end
 
