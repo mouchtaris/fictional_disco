@@ -36,7 +36,7 @@ namespace
         static_assert(std::is_same_v<subject, expected>, FAIL);
     }
 
-    namespace t_fixture_add
+    namespace t_fixture_Add
     {
         using namespace fixture;
         using Tpf::apply;
@@ -52,7 +52,7 @@ namespace
             typename a,
             typename b
         >
-        using plus = apply<apply<add, a, b>, id>;
+        using plus = apply<apply<Add, a, b>, id>;
 
         template <
             typename a,
@@ -72,7 +72,33 @@ namespace
         static_assert(eq< plus<_1, _2>, plus<_2, _1> >, FAIL);
 
 
-        static_assert(eq< plus<_1, _2>, return_<add, _2, _1> >, FAIL);
+        static_assert(eq< plus<_1, _2>, return_<Add, _2, _1> >, FAIL);
+
+
+        static_assert(eq<
+                return_<Add,
+                    return_<Add, _1, _0>,
+                    return_<Add, _0, _2>
+                >,
+                _3
+            >, FAIL);
+        static_assert(eq<
+                _3,
+                return_<Add,
+                    return_<Add, _1, _1>,
+                    return_<Add, _0, _1>
+                >
+            >, FAIL);
+        static_assert(eq<
+                return_<Add,
+                    return_<Add, _1, _0>,
+                    return_<Add, _0, _2>
+                >,
+                return_<Add,
+                    return_<Add, _1, _1>,
+                    return_<Add, _0, _1>
+                >
+            >, FAIL);
     }
 }
 

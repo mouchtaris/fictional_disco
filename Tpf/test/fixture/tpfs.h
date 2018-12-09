@@ -6,7 +6,7 @@ namespace test::Tpf::fixture
 
     template <typename = void> struct Zero;
     template <typename = void> struct Next;
-    struct add;
+    struct Add;
 }
 namespace Tpf
 {
@@ -26,16 +26,16 @@ namespace Tpf
         typename a,
         typename b
     >
-    struct tpf<add, a, Next<b>>
+    struct tpf<Add, a, Next<b>>
     {
-        using type = apply<add, Next<a>, b>;
+        using type = apply<Add, Next<a>, b>;
     };
 
     template <
         typename a,
         typename z
     >
-    struct tpf<add, a, Zero<z>>
+    struct tpf<Add, a, Zero<z>>
     {
         using type = apply<def, a>;
     };
