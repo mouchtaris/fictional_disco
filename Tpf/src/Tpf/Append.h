@@ -20,7 +20,7 @@ namespace Tpf
     >
     struct tpf<std::tuple<Append, Bound...>, Args...>
     {
-        using type = def<Args..., Bound...>;
+        using type = apply<def, Args..., Bound...>;
     };
 
 

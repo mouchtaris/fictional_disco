@@ -1,5 +1,7 @@
 #include "test_def.h"
 #include "fixture/tpfs.h"
+#include "Tpf/Id.h"
+#include "Tpf/return_.h"
 #include <iostream>
 #include <type_traits>
 #include <tuple>
@@ -40,7 +42,7 @@ namespace
     {
         using namespace fixture;
         using Tpf::apply;
-        using Tpf::id;
+        using Tpf::Id;
         using Tpf::return_;
 
         using _0 = Zero<>;
@@ -52,7 +54,7 @@ namespace
             typename a,
             typename b
         >
-        using plus = apply<apply<Add, a, b>, id>;
+        using plus = apply<apply<Add, a, b>, Id>;
 
         template <
             typename a,
