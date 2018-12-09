@@ -8,7 +8,15 @@
 cmake_minimum_required(VERSION 3.12)
 
 add_library(Tpf STATIC
+    src/Tpf/Append.cpp
+    src/Tpf.cpp
     src/Tpf/def.cpp
+    src/Tpf/Id.cpp
+    src/Tpf/Id.cpp
+    src/Tpf/Prepend.cpp
+    src/Tpf/return_.cpp
+    src/Tpf/tpf.cpp
+    src/Tpf/Tuplify.cpp
 )
 target_include_directories(Tpf
     PUBLIC
