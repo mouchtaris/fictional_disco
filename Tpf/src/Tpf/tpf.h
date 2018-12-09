@@ -46,4 +46,26 @@ namespace Tpf
         is_defined<Args...>,
         typename tpf<Args...>::type
         >;
+
+
+
+    ////////
+    // Core tpfs
+    ////////
+
+
+    ////////
+    // Extractors
+    ////////
+    struct id;
+    template <typename T> struct tpf<id, T> { using type = T; };
+
+    struct tuplify;
+    template <typename... Ts> struct tpf<tuplify, Ts...> { using type = std::tuple<Ts...>; };
+
+
+    /////////
+    // Extractor shortcuts
+    /////////
+    template <typename... Def> using return_ = apply<apply<Def...>, id>;
 }

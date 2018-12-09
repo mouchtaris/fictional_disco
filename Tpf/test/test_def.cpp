@@ -2,6 +2,7 @@
 #include "fixture/tpfs.h"
 #include <iostream>
 #include <type_traits>
+#include <tuple>
 
 #define FAIL "Test failure."
 using namespace test::Tpf;
@@ -33,6 +34,45 @@ namespace
         using subject = Tpf::apply<def, fixture::tuplize>;
 
         static_assert(std::is_same_v<subject, expected>, FAIL);
+    }
+
+    namespace t_fixture_add
+    {
+        using namespace fixture;
+        using Tpf::apply;
+        using Tpf::id;
+        using Tpf::return_;
+
+        using _0 = Zero<>;
+        using _1 = Next<_0>;
+        using _2 = Next<_1>;
+        using _3 = Next<_2>;
+
+        template <
+            typename a,
+            typename b
+        >
+        using plus = apply<apply<add, a, b>, id>;
+
+        template <
+            typename a,
+            typename b
+        >
+        constexpr auto eq = std::conjunction_v<std::is_same<a, b>>;
+
+        static_assert(eq< plus<_0, _0>, _0>, FAIL);
+        static_assert(eq< plus<_0, _1>, _1>, FAIL);
+        static_assert(eq< plus<_1, _0>, _1>, FAIL);
+        static_assert(eq< plus<_1, _1>, _2>, FAIL);
+        static_assert(eq< plus<_1, _2>, _3>, FAIL);
+        static_assert(eq< plus<_2, _1>, _3>, FAIL);
+        static_assert(eq< plus<_3, _0>, _3>, FAIL);
+        static_assert(eq< plus<_0, _3>, _3>, FAIL);
+
+        static_assert(eq< plus<_1, _2>, plus<_2, _1> >, FAIL);
+
+
+        static_assert(eq< plus<_1, _2>, return_<add, _2, _1> >, FAIL);
     }
 }
 
