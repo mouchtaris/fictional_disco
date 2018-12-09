@@ -13,9 +13,10 @@ add_library(_compile_options INTERFACE)
 target_compile_features(_compile_options INTERFACE cxx_std_20)
 target_compile_options(_compile_options INTERFACE -Wall -Wextra -pedantic)
 
+
 add_subdirectory(Tpf)
 
 add_executable(test
     test/main.cpp
     )
-target_link_libraries(test PRIVATE Tpf_Test)
+target_link_libraries(test PRIVATE Tpf_Test _compile_options)

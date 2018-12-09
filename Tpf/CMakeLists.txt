@@ -20,10 +20,12 @@ add_library(Tpf STATIC
 )
 target_include_directories(Tpf
     PUBLIC
-        src/
+        # $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        # $<INSTALL_INTERFACE:include>
+        src
     )
 target_link_libraries(Tpf
-    PUBLIC
+    PRIVATE
         _compile_options
     )
 
@@ -35,5 +37,23 @@ add_library(Tpf_Test STATIC
 target_link_libraries(Tpf_Test
     PUBLIC
         Tpf
+    PRIVATE
         _compile_options
     )
+
+#install(
+#    TARGETS
+#        Tpf
+#    EXPORT TpfTargets
+#    LIBRARY DESTINATION lib
+#    ARCHIVE DESTINATION lib
+#    RUNTIME DESTINATION bin
+#    INCLUDES DESTINATION include
+#    )
+#install(
+#    EXPORT TpfTargets
+#    FILE TpfConfig.cmake
+#    NAMESPACE Tpf::
+#    DESTINATION lib/cmake/Tpf
+#    )
+#export(EXPORT TpfTargets NAMESPACE Tpf::)
