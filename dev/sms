@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+true &&
+cd lib/sms &&
+crystal run --error-trace src/main.cr -- ../..
