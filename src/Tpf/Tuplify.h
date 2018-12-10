@@ -2,6 +2,8 @@
 #include "tpf.h"
 namespace Tpf
 {
+    namespace sacl { struct Tuplify; }
+
     struct Tuplify;
 
 

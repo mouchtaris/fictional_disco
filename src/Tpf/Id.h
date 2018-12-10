@@ -2,6 +2,8 @@
 #include "tpf.h"
 namespace Tpf
 {
+    namespace sacl { struct Id; }
+
     struct Id;
 
 

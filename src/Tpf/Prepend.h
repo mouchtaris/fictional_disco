@@ -2,6 +2,7 @@
 #include "def.h"
 namespace Tpf
 {
+    namespace sacl { struct Prepend; }
 
     struct Prepend;
 

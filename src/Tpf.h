@@ -8,5 +8,5 @@
 #include "Tpf/Prepend.h"
 namespace Tpf
 {
-    void _u__mod();
+    namespace sacl { struct sacl_mod; }
 }

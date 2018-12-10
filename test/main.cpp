@@ -1,4 +1,4 @@
-#include "../Tpf/test/test.h"
+#include "Tpf.h"
 #include <iostream>
 
 namespace

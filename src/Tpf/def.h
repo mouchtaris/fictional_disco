@@ -3,12 +3,7 @@
 #include <type_traits>
 namespace Tpf
 {
-    template <
-        typename...
-    >
-    struct tpf;
-
-
+    namespace sacl { struct def; }
 
     struct def;
     template <typename...> struct Definition;

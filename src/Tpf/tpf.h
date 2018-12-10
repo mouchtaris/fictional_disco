@@ -2,8 +2,7 @@
 #include <type_traits>
 namespace Tpf
 {
-    extern void _u__mod__tpf();
-
+    namespace sacl { struct tpf; }
 
     template <
         typename...
