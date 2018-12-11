@@ -3,9 +3,8 @@
 struct ConfDirStorage
   def initialize(
     @root : String,
-    @path = nil,
+    @path = [] of String,
   )
-    @path ||= [] of String
   end
 
   def path
