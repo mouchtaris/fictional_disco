@@ -1,19 +1,15 @@
 # vim: et ts=2 sw=2
 require "./logging"
 require "./logger"
+require "./conf_dir_storage"
 
-class A
-  include Logging
-
-  def initialize(
-    @argv : Array(String)
-  )
-    super()
+struct Main
+  def initialize(argv)
+    sms_root = argv[0]
+    @conf = ConfDirStorage.new(sms_root)
   end
 
-  def main
-    log.info "Hello. This is the Source Management System -- Aperture IT"
+  def self.main
+    main = Main.new(ARGV.dup)
   end
 end
-
-A.new(ARGV).main
