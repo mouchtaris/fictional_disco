@@ -2,7 +2,6 @@
 
 module Logging
   def initialize
-    super
     @logger = Logger.new(STDERR, self.class.name)
   end
 

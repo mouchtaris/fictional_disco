@@ -7,6 +7,10 @@ struct ConfDirStorage
   )
   end
 
+  def root
+    @root
+  end
+
   def path
     case @path.size
     when 0

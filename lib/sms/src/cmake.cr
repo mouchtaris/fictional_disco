@@ -2,12 +2,10 @@
 
 module CMake
   @io : IO
-  @conf : ConfDirStorage
-
   include ConfDirViews
 
   private def skeletor
-    @conf.subconf(:skeletor).subconf("CMakeLists.txt")
+    conf_skeletor.subconf("CMakeLists.txt")
   end
 
   def write_skel(name)
@@ -63,11 +61,9 @@ module CMake
     target_source :test, "test/main.cpp"
     target_link_libraries :test, :lib
 
-    conf_mods.each do |mod_name|
+    conf_mods.each do |mod_name, mod|
       target_source :main, "src/#{mod_name}.cpp"
       target_source :test, "test/test_#{mod_name}.cpp"
-
-      mod = conf_mod(mod_name)
 
       sacls = mod.join(", ")
       target_compile_definitions :main, "#{mod_name.upcase}__SACLS=\"#{sacls}\""
