@@ -2,6 +2,7 @@
 require "./logging"
 require "./logger"
 require "./conf_dir_storage"
+require "./conf_dir_views"
 require "./cmake"
 
 module Impls
