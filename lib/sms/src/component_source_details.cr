@@ -15,14 +15,11 @@ module ComponentSourceDetails
     @comp_name
   end
 
-  def path
-    File.join(
-      conf_sms_root,
-      conf_project_root,
-      "src",
+  def path_suffix
+    [
       @mod_name,
-      "#{@comp_name}.cpp"
-    )
+      "#{@comp_name}.cpp",
+    ]
   end
 
   def saga_define_sacl
