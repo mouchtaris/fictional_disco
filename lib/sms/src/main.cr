@@ -6,6 +6,8 @@ require "./conf_dir_views"
 require "./cmake"
 require "./file_views"
 require "./source"
+require "./source_details"
+require "./component_source_details"
 
 module Impls
   struct CMake
@@ -17,11 +19,13 @@ module Impls
   class Source
     include ::Logging
     include ::Source
-    include ::ConfDirViews
-    def initialize(@conf, @mod_name, @comp_name)
+    def initialize(
+      @conf,
+      @source_details : SourceDetails
+    )
       @logger = Logging.logger_for "Source"
 
-      path_ = path
+      path_ = @source_details.path
       log.info "Initializing #{@mod_name}::#{@comp_name} with #{path_}"
       if File.exists? path
         @lines = File.read_lines path_
@@ -57,7 +61,8 @@ struct Main
   def generate_source_files
     conf_each_mod do |mod_name, mod|
       mod.subconf(:comps).list.each do |comp_name|
-        src = Impls::Source.new(@conf, mod_name, comp_name)
+        details = ComponentSourceDetails.new(mod_name, comp_name)
+        src = Impls::Source.new(@conf, details)
         src.rewrite!
       end
     end
