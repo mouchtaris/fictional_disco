@@ -18,8 +18,8 @@ module Source
   end
 
   def rewrite!
-    file_header_saga = @source_details.file_header_saga
-    file_footer_saga = @source_details.file_footer_saga
+    file_header_saga = @source_details.denoted_file_header_saga
+    file_footer_saga = @source_details.denoted_file_footer_saga
 
     preserve_start = file_header_saga.size
     preserve_end = -file_footer_saga.size - 1

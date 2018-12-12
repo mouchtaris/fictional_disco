@@ -10,6 +10,7 @@ require "./sagas"
 require "./source"
 require "./source_details"
 require "./component_source_details"
+require "./mod_main_source_details"
 
 module Impls
   struct CMake
@@ -28,8 +29,7 @@ module Impls
       @logger = Logging.logger_for "Source"
 
       path = @source_details.path
-      log.info "Initializing #{@source_details.mod_name}::" \
-        "#{@source_details.comp_name} with #{path}"
+      log.info "Initializing #{@source_details.path}"
       if File.exists? path
         @lines = File.read_lines path
       else
@@ -41,6 +41,12 @@ module Impls
   struct ComponentSourceDetails
     include ::ComponentSourceDetails
     def initialize(@conf, @mod_name, @comp_name)
+    end
+  end
+
+  struct ModMainSourceDetails
+    include ::ModMainSourceDetails
+    def initialize(@conf, @mod_name)
     end
   end
 end
@@ -69,6 +75,11 @@ struct Main
 
   def generate_source_files
     conf_each_mod do |mod_name, mod|
+      begin
+        details = Impls::ModMainSourceDetails.new(@conf, mod_name)
+        src = Impls::Source.new(@conf, details)
+        src.rewrite!
+      end
       mod.subconf(:comps).list.each do |comp_name|
         details = Impls::ComponentSourceDetails.new(@conf, mod_name, comp_name)
         src = Impls::Source.new(@conf, details)
