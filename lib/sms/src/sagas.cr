@@ -40,9 +40,21 @@ module Sagas
     ]
   end
 
+  def saga_pragma(what)
+    [
+      saga_line { "#pragma #{what}" },
+    ]
+  end
+
   def saga_include_header(name)
     [
       saga_line { "#include \"#{name}.h\"" },
+    ]
+  end
+
+  def saga_include_system_header(name)
+    [
+      saga_line { "#include <#{name}>" },
     ]
   end
 
@@ -62,6 +74,12 @@ module Sagas
     ] +
       saga_sacl_signature(mod_name, sacl_name) +
       saga_open_body
+  end
+
+  def saga_declare_sacl(mod_name, comp_name)
+    [
+      saga_line { "namespace sacl { struct #{comp_name}; }" },
+    ]
   end
 
   def saga_define_sacl(mod_name, sacl_name)
@@ -91,5 +109,4 @@ module Sagas
   def saga_indent(n, &block : Proc(Array(LineAdder))) : Array(LineAdder)
     block.call.map { |ladder| ladder.indent_incr }
   end
-
 end

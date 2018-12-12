@@ -33,7 +33,12 @@ struct ConfDirStorage
   end
 
   def lines(name)
-    File.read_lines absolute_key(value_key(name))
+    path = absolute_key(value_key(name))
+    if File.exists?(path)
+      File.read_lines path
+    else
+      [] of String
+    end
   end
 
   def value(name)

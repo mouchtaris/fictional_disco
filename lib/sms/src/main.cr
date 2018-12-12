@@ -7,10 +7,12 @@ require "./cmake"
 require "./file_views"
 require "./line_adder"
 require "./sagas"
-require "./source"
 require "./source_details"
+require "./component_details"
+require "./component_header_details"
 require "./component_source_details"
 require "./mod_main_source_details"
+require "./source"
 
 module Impls
   struct CMake
@@ -40,6 +42,12 @@ module Impls
 
   struct ComponentSourceDetails
     include ::ComponentSourceDetails
+    def initialize(@conf, @mod_name, @comp_name)
+    end
+  end
+
+  struct ComponentHeaderDetails
+    include ::ComponentHeaderDetails
     def initialize(@conf, @mod_name, @comp_name)
     end
   end
@@ -80,7 +88,7 @@ struct Main
         src = Impls::Source.new(@conf, details)
         src.rewrite!
       end
-      mod.subconf(:comps).list.each do |comp_name|
+      conf_each_comp(mod_name) do |comp_name, comp_conf|
         details = Impls::ComponentSourceDetails.new(@conf, mod_name, comp_name)
         src = Impls::Source.new(@conf, details)
         src.rewrite!
@@ -88,9 +96,19 @@ struct Main
     end
   end
 
+  def generate_header_files
+    conf_each_mod do |mod_name, mod|
+      conf_each_comp(mod_name) do |comp_name, comp|
+        details = Impls::ComponentHeaderDetails.new(@conf, mod_name, comp_name)
+        src = Impls::Source.new(@conf, details)
+      end
+    end
+  end
+
   def main
     generate_cmake
     generate_source_files
+    generate_header_files
   end
 
   def self.main

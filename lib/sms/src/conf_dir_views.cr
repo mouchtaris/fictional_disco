@@ -23,12 +23,16 @@ module ConfDirViews
     @conf.subconf :structure
   end
 
+  def conf_mods_conf
+    conf_structure.subconf(:mods)
+  end
+
   def conf_mod(name)
-    conf_structure.subconf(:mods).subconf(name)
+    conf_mods_conf.subconf(name)
   end
 
   def conf_each_mod
-    conf_structure.subconf(:mods).list.each do |mod_name|
+    conf_mods_conf.list.each do |mod_name|
       yield mod_name, conf_mod(mod_name)
     end
   end
@@ -39,5 +43,24 @@ module ConfDirViews
       result[name] = mod
     end
     result
+  end
+
+  def conf_comps_conf(mod_name)
+    conf_mod(mod_name).subconf(:comps)
+  end
+
+  def conf_comp(mod_name, comp_name)
+    conf_comps_conf(mod_name).subconf(comp_name)
+  end
+
+  def conf_each_comp(mod_name)
+    conf_comps_conf(mod_name).list.each do |comp_name|
+      yield comp_name, conf_comp(mod_name, comp_name)
+    end
+  end
+
+  def conf_comp_includes(mod_name, comp_name, *opts)
+    opts_suff = opts.join("_")
+    conf_comp(mod_name, comp_name).lines("include_#{opts_suff}")
   end
 end
