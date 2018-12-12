@@ -5,6 +5,8 @@ require "./conf_dir_storage"
 require "./conf_dir_views"
 require "./cmake"
 require "./file_views"
+require "./line_adder"
+require "./sagas"
 require "./source"
 require "./source_details"
 require "./component_source_details"
@@ -16,7 +18,7 @@ module Impls
     end
   end
 
-  class Source
+  struct Source
     include ::Logging
     include ::Source
     def initialize(
@@ -25,13 +27,20 @@ module Impls
     )
       @logger = Logging.logger_for "Source"
 
-      path_ = @source_details.path
-      log.info "Initializing #{@mod_name}::#{@comp_name} with #{path_}"
+      path = @source_details.path
+      log.info "Initializing #{@source_details.mod_name}::" \
+        "#{@source_details.comp_name} with #{path}"
       if File.exists? path
-        @lines = File.read_lines path_
+        @lines = File.read_lines path
       else
         @lines = [] of String
       end
+    end
+  end
+
+  struct ComponentSourceDetails
+    include ::ComponentSourceDetails
+    def initialize(@conf, @mod_name, @comp_name)
     end
   end
 end
@@ -61,7 +70,7 @@ struct Main
   def generate_source_files
     conf_each_mod do |mod_name, mod|
       mod.subconf(:comps).list.each do |comp_name|
-        details = ComponentSourceDetails.new(mod_name, comp_name)
+        details = Impls::ComponentSourceDetails.new(@conf, mod_name, comp_name)
         src = Impls::Source.new(@conf, details)
         src.rewrite!
       end

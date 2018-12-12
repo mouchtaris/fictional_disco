@@ -5,7 +5,7 @@ module Sagas
     LineAdder.new(block)
   end
 
-  def saga_add_empty_body
+  def saga_empty_body
     [
       (saga_line { "{" }),
       (saga_line { "}" }),
@@ -38,7 +38,7 @@ module Sagas
 
   def saga_close_modspace
     [
-      (saga_add_line { "}" }),
+      (saga_line { "}" }),
     ]
   end
 end

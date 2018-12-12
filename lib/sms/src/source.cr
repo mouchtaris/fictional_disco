@@ -11,10 +11,6 @@ module Source
     end
   end
 
-  def header_generated_lines_count
-    header_saga.size
-  end
-
   def resolve_saga(saga, io)
     saga.each do |sag|
       sag.call io
@@ -22,11 +18,11 @@ module Source
   end
 
   def rewrite!
-    header_saga_ = header_saga
-    footer_saga_ = footer_saga
+    file_header_saga = @source_details.file_header_saga
+    file_footer_saga = @source_details.file_footer_saga
 
-    preserve_start = header_saga_.size
-    preserve_end = -footer_saga_.size - 1
+    preserve_start = file_header_saga.size
+    preserve_end = -file_footer_saga.size - 1
     preserve_range = preserve_start..preserve_end
 
     preserve =
@@ -37,9 +33,9 @@ module Source
       end
 
     open_w do |fout|
-      resolve_saga header_saga_, fout
+      resolve_saga file_header_saga, fout
       preserve.each { |l| fout.puts l }
-      resolve_saga footer_saga_, fout
+      resolve_saga file_footer_saga, fout
     end
   end
 end
