@@ -8,52 +8,64 @@ require "./file_views"
 require "./source"
 
 module Impls
-  class Conf
-    include ConfDirViews
-    def initialize(@conf)
-    end
-  end
-
-  class CMake
+  struct CMake
     include ::CMake
     def initialize(@io, @conf)
     end
   end
 
   class Source
+    include ::Logging
     include ::Source
-    def initialize(@conf)
-      @mod_name = "Tpf"
-      @comp_name = "def"
-      @lines = File.read_lines "../../src/Tpf/def.cpp"
+    include ::ConfDirViews
+    def initialize(@conf, @mod_name, @comp_name)
+      @logger = Logging.logger_for "Source"
+
+      path_ = path
+      log.info "Initializing #{@mod_name}::#{@comp_name} with #{path_}"
+      if File.exists? path
+        @lines = File.read_lines path_
+      else
+        @lines = [] of String
+      end
     end
   end
 end
 
 struct Main
   include ::Logging
+  include ::ConfDirViews
 
   def initialize(argv)
-    super()
     sms_root = argv[0]
-    @conf = Impls::Conf.new(ConfDirStorage.new(sms_root))
+    @conf = ConfDirStorage.new(sms_root)
+    @logger = Logging.logger_for "Main"
   end
 
   def generate_cmake
     path = File.join(
-      @conf.conf_sms_root,
-      @conf.conf_project_root,
+      conf_sms_root,
+      conf_project_root,
       "CMakeLists.txt"
     )
     log.info "Writing cmake lists file to #{path}"
     File.open(path, "w") do |fout|
-      Impls::CMake.new(fout, @conf.conf).call
+      Impls::CMake.new(fout, @conf).call
+    end
+  end
+
+  def generate_source_files
+    conf_each_mod do |mod_name, mod|
+      mod.subconf(:comps).list.each do |comp_name|
+        src = Impls::Source.new(@conf, mod_name, comp_name)
+        src.rewrite!
+      end
     end
   end
 
   def main
     generate_cmake
-    pp Impls::Source.new(@conf.conf).header_generated_lines_count
+    generate_source_files
   end
 
   def self.main

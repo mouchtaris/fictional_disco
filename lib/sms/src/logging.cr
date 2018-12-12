@@ -1,8 +1,10 @@
 # vim: et ts=2 sw=2
 
 module Logging
-  def initialize
-    @logger = Logger.new(STDERR, self.class.name)
+  @logger : Logger
+
+  def self.logger_for(name)
+    Logger.new(STDERR, name)
   end
 
   def log

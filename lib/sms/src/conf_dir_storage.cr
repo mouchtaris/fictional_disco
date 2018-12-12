@@ -32,12 +32,16 @@ struct ConfDirStorage
     File.join @root, path, key
   end
 
-  def list(name)
-    File.read_lines(absolute_key(value_key(name)))
+  def lines(name)
+    File.read_lines absolute_key(value_key(name))
   end
 
   def value(name)
-    list(name).first
+    lines(name).first
+  end
+
+  def list
+    lines("list")
   end
 
   def subconf(name)

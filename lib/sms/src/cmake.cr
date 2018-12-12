@@ -8,12 +8,12 @@ module CMake
     conf_skeletor.subconf("CMakeLists.txt")
   end
 
-  def write_skel(name)
-    skeletor.list(name).each { |l| @io.puts l }
-  end
-
   def write(line)
     @io.puts line
+  end
+
+  def write_skel(name)
+    skeletor.lines(name).each { |l| write l }
   end
 
   def add_executable(name)
@@ -65,10 +65,11 @@ module CMake
       target_source :main, "src/#{mod_name}.cpp"
       target_source :test, "test/test_#{mod_name}.cpp"
 
-      sacls = mod.join(", ")
+      comp_list = mod.subconf(:comps).list
+      sacls = comp_list.join(", ")
       target_compile_definitions :main, "#{mod_name.upcase}__SACLS=\"#{sacls}\""
 
-      mod.each do |comp|
+      comp_list.each do |comp|
         target_source :main, "src/#{mod_name}/#{comp}.cpp"
         target_source :test, "test/#{mod_name}/test_#{comp}.cpp"
       end

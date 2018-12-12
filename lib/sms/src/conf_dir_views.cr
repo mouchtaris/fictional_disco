@@ -24,18 +24,18 @@ module ConfDirViews
   end
 
   def conf_mod(name)
-    conf_structure.subconf(:mods).list(name)
+    conf_structure.subconf(:mods).subconf(name)
   end
 
-  def each_conf_mod
-    conf_structure.list(:mods).each do |mod_name|
+  def conf_each_mod
+    conf_structure.subconf(:mods).list.each do |mod_name|
       yield mod_name, conf_mod(mod_name)
     end
   end
 
   def conf_mods
-    result = {} of String => Array(String)
-    each_conf_mod do |name, mod|
+    result = {} of String => ConfDirStorage
+    conf_each_mod do |name, mod|
       result[name] = mod
     end
     result
