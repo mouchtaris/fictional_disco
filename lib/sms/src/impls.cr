@@ -11,7 +11,9 @@ require "./source_details"
 require "./component_details"
 require "./component_header_details"
 require "./component_source_details"
+require "./mod_main_details"
 require "./mod_main_source_details"
+require "./mod_main_header_details"
 require "./source"
 require "./actions"
 
@@ -55,6 +57,12 @@ module Impls
 
   struct ModMainSourceDetails
     include ::ModMainSourceDetails
+    def initialize(@conf, @mod_name)
+    end
+  end
+
+  struct ModMainHeaderDetails
+    include ::ModMainHeaderDetails
     def initialize(@conf, @mod_name)
     end
   end

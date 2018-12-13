@@ -4,9 +4,11 @@ module Actions
   module GenerateHeaderFiles
     include Action
     CHD = Impls::ComponentHeaderDetails
+    MHD = Impls::ModMainHeaderDetails
 
     def each_header_file_details(mod_name)
-      # TODO mod main header file details
+      yield MHD.new(@conf, mod_name)
+
       conf_each_comp(mod_name) do |comp_name, comp|
           yield CHD.new(@conf, mod_name, comp_name)
       end
