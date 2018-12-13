@@ -74,6 +74,6 @@ module ConfDirViews
 
   def conf_add_comp_includes(val, mod_name, comp_name, *opts)
     opts_suff = opts.join("_")
-    conf_comp(mod_name, comp_name).add("includes_#{opts_suff}", val)
+    conf_comp(mod_name, comp_name).add("include_#{opts_suff}", val)
   end
 end
