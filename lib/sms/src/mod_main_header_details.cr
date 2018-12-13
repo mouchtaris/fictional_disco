@@ -12,7 +12,7 @@ module ModMainHeaderDetails
 
   def include_saga
     conf_comps(mod_name)
-      .flat_map { |comp_name, _comp| saga_include_header "#{mod_name}/#{comp_name}" }
+      .flat_map { |comp_name, _comp| saga_include_header "#{mod_name}/#{comp_name}.h" }
   end
 
   #@ override SourceDetails

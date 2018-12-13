@@ -20,6 +20,10 @@ struct ConfDirStorage
     end
   end
 
+  def mkdir_p
+    Dir.mkdir_p(File.join(@root, path))
+  end
+
   def value_key(name)
     "#{name}.txt"
   end
@@ -51,5 +55,20 @@ struct ConfDirStorage
 
   def subconf(name)
     self.class.new(@root, @path.dup << subconf_key(name).to_s)
+  end
+
+  def add(name, val)
+    prev = lines(name)
+    next_ = (prev.dup << val).sort.uniq
+
+    if prev != next_
+      path = absolute_key(value_key(name))
+
+      mkdir_p
+
+      File.open(path, "w") do |fout|
+        next_.each { |line| fout.puts line }
+      end
+    end
   end
 end

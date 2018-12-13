@@ -1,14 +1,27 @@
 # vim: et ts=2 sw=2
 
 require "./impls"
+require "./cli"
 
 struct Main
   include Actions
+  include Cli
 
   def initialize(argv)
     sms_root = argv[0]
     @conf = ConfDirStorage.new(sms_root)
     @logger = Logging.logger_for "Main"
+
+    if argv.size > 1
+      command = argv[1]
+      if command.starts_with?("+h")
+        log.info "Adding header"
+        _, args = command.split(":", 2)
+        add_header args
+      else
+        log.warn "Unknown #{command}"
+      end
+    end
   end
 
   def main

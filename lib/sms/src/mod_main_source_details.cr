@@ -12,8 +12,8 @@ module ModMainSourceDetails
 
   #@ override SourceDetails
   def file_header_saga
-    saga_include_header(mod_name) +
-      saga_include_header("sacl") +
+    saga_include_header("#{mod_name}.h") +
+      saga_include_header("sacl.h") +
       saga_empty_line +
       saga_sacl_definition_opening(mod_name, "sacl_mod") +
       saga_indent(1) {

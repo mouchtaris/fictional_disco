@@ -17,8 +17,8 @@ module ComponentSourceDetails
 
   #@ override SourceDetails
   def file_header_saga
-      saga_include_header(comp_name) +
-      saga_include_header("sacl") +
+      saga_include_header("${comp_name}.h") +
+      saga_include_header("sacl.h") +
       saga_empty_line +
       saga_define_sacl(mod_name, comp_name) +
       saga_open_modspace(mod_name)

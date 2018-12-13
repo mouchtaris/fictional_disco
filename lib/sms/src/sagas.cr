@@ -48,7 +48,7 @@ module Sagas
 
   def saga_include_header(name)
     [
-      saga_line { "#include \"#{name}.h\"" },
+      saga_line { "#include \"#{name}\"" },
     ]
   end
 
