@@ -1,5 +1,4 @@
 Append
-def
 Id
 Prepend
 return_
