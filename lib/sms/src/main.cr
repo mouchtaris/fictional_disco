@@ -11,21 +11,6 @@ struct Main
     @logger = Logging.logger_for "Main"
   end
 
-  def generate_source_files
-    conf_each_mod do |mod_name, mod|
-      begin
-        details = Impls::ModMainSourceDetails.new(@conf, mod_name)
-        src = Impls::Source.new(@conf, details)
-        src.rewrite!
-      end
-      conf_each_comp(mod_name) do |comp_name, comp_conf|
-        details = Impls::ComponentSourceDetails.new(@conf, mod_name, comp_name)
-        src = Impls::Source.new(@conf, details)
-        src.rewrite!
-      end
-    end
-  end
-
   def generate_header_files
     conf_each_mod do |mod_name, mod|
       # TODO mod main header file

@@ -38,11 +38,11 @@ module ConfDirViews
   end
 
   def conf_mods
-    result = {} of String => ConfDirStorage
-    conf_each_mod do |name, mod|
-      result[name] = mod
+    ({} of String => ConfDirStorage).tap do |result|
+      conf_each_mod do |name, mod|
+        result[name] = mod
+      end
     end
-    result
   end
 
   def conf_comps_conf(mod_name)
@@ -56,6 +56,14 @@ module ConfDirViews
   def conf_each_comp(mod_name)
     conf_comps_conf(mod_name).list.each do |comp_name|
       yield comp_name, conf_comp(mod_name, comp_name)
+    end
+  end
+
+  def conf_comps(mod_name)
+    ({} of String => ConfDirStorage).tap do |result|
+      conf_each_comp(mod_name) do |name, comp|
+        result[name] = comp
+      end
     end
   end
 

@@ -8,7 +8,9 @@ module Actions
 end
 
 require "./actions/generate_cmake"
+require "./actions/generate_source_files"
 
 module Actions
   include GenerateCMake
+  include GenerateSourceFiles
 end
