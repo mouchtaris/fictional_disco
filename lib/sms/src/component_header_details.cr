@@ -16,11 +16,13 @@ module ComponentHeaderDetails
   end
 
   #@ override SourceDetails
-  def file_header_saga
+  def file_header_saga : Array(LineAdder)
     saga_pragma(:once) +
       include_saga +
-      saga_open_modspace(mod_name)
-      saga_declare_sacl(mod_name, comp_name)
+      saga_open_modspace(mod_name) +
+      saga_indent(1) {
+        saga_declare_sacl(mod_name, comp_name)
+      }
   end
 
   #@ override SourceDetails

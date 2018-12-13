@@ -1,6 +1,6 @@
+Append
 def
-tpf
 Id
 Prepend
-Append
+tpf
 Tuplify
