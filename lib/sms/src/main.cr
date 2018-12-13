@@ -14,10 +14,14 @@ struct Main
 
     if argv.size > 1
       command = argv[1]
-      if command.starts_with?("+h")
+
+      case command
+      when /^\+h/
         log.info "Adding header"
         _, args = command.split(":", 2)
         add_header args
+      when /^list_config/
+        list_config
       else
         log.warn "Unknown #{command}"
       end

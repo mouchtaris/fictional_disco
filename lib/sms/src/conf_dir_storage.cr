@@ -20,8 +20,8 @@ struct ConfDirStorage
     end
   end
 
-  def mkdir_p
-    Dir.mkdir_p(File.join(@root, path))
+  def mkdir_p(absolute_key)
+    Dir.mkdir_p(File.dirname(absolute_key))
   end
 
   def value_key(name)
@@ -64,7 +64,7 @@ struct ConfDirStorage
     if prev != next_
       path = absolute_key(value_key(name))
 
-      mkdir_p
+      mkdir_p path
 
       File.open(path, "w") do |fout|
         next_.each { |line| fout.puts line }
