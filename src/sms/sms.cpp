@@ -1,5 +1,7 @@
 #include <string>
+#include <tuple>
 #include <type_traits>
+#include <deque>
 
 namespace sms
 {
@@ -16,12 +18,12 @@ namespace sms
             struct TPatch{};
         }
         struct TVersion{};
-        template <size_t> struct TPath{};
+        struct TPath{};
         struct TProject{};
         struct TModule{};
         struct TComp{};
-        template <typename, typename> struct TBelong{};
-        template <typename, typename> struct TDep{};
+        struct TBelong{};
+        struct TDep{};
 
         //
         // Data
@@ -34,7 +36,7 @@ namespace sms
             using namespace tversion;
             using _val_t = std::uint16_t;
             using Major = tagged<TMajor, _val_t>;
-            using Minor = tagged<TMinor, _vat_t>;
+            using Minor = tagged<TMinor, _val_t>;
             using Patch = tagged<TPatch, _val_t>;
         }
         using Version = tagged<TVersion,
@@ -43,7 +45,7 @@ namespace sms
             version::Patch
             >;
 
-        template <size_t N> using Path = tagged<TPath, std::array<N, std::string>>;
+        using Path = tagged<TPath, std::deque<std::string>>;
         using Project = tagged<TProject, Name, Version, Path>;
         using Module = tagged<TModule, Name, Version>;
         using Comp = tagged<TComp, Name>;
@@ -87,4 +89,9 @@ namespace sms
             return version;
         }
     }
+}
+
+int main(int, char**)
+{
+    return 0;
 }

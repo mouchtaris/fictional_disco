@@ -1,7 +1,7 @@
 BUILD_DIR ?= /tmp/build
 
 test: build
-	${BUILD_DIR}/main
+	${BUILD_DIR}/sms
 build:
 	cmake --build ${BUILD_DIR}
 conf: clean

@@ -29,3 +29,8 @@ target_sources(main PRIVATE src/Tpf/Prepend.cpp)
 target_sources(main PRIVATE src/Tpf/return_.cpp)
 target_sources(main PRIVATE src/Tpf/tpf.cpp)
 target_sources(main PRIVATE src/Tpf/Tuplify.cpp)
+
+
+add_executable(sms)
+target_link_libraries(sms PRIVATE _compile_options)
+target_sources(sms PRIVATE src/sms/sms.cpp)
