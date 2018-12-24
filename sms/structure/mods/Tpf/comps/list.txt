@@ -1,6 +1,0 @@
-Append
-Id
-Prepend
-return_
-tpf
-Tuplify

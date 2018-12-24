@@ -1,7 +1,8 @@
 #pragma once
-#include <tuple>
 #include "Ghost.h"
-namespace typelite
+#include <tuple>
+#include <type_traits>
+namespace typelite::tag
 {
 
     /**
@@ -95,9 +96,42 @@ namespace typelite
         typename Tagged
     >
     auto value(Tagged&& tagged)
-        -> TaggedTraits_Value<Tagged>
+        -> TaggedTraits_Value<std::decay_t<Tagged>>
     {
         return std::get<1>(std::forward<Tagged>(tagged));
     }
 
+    template <
+        typename Tagged
+    >
+    using value_t = decltype(
+        value(std::declval<Tagged>())
+    );
+
+    /**
+     * Get tuple item I from a tagged type value.
+     *
+     * Usually TaggedType values are tuples, even if empty
+     * or of size 1.
+     *
+     * This helper comes in handy right then, accessing the
+     * tagged type's value as a tuple.
+     */
+    template <
+        size_t I,
+        typename Tagged
+    >
+    auto value_get(Tagged&& tagged)
+        -> std::tuple_element_t<I, value_t<Tagged>>
+    {
+        return std::get<I>(value(std::forward<Tagged>(tagged)));
+    }
+    /** And the accompanying result_t */
+    template <
+        size_t I,
+        typename Tagged
+    >
+    using value_get_result_t = decltype(
+        value_get<I>(std::declval<Tagged>())
+    );
 }
