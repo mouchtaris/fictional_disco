@@ -1,97 +1,16 @@
-#include <string>
-#include <tuple>
-#include <type_traits>
-#include <deque>
+#include "args.h"
+#include <iostream>
+#include <algorithm>
 
 namespace sms
 {
-    namespace model
+    int sms(int argc, char* argv[])
     {
-        //
-        // Tags
-        //
-        struct TName{};
-        namespace tversion
-        {
-            struct TMajor{};
-            struct TMinor{};
-            struct TPatch{};
-        }
-        struct TVersion{};
-        struct TPath{};
-        struct TProject{};
-        struct TModule{};
-        struct TComp{};
-        struct TBelong{};
-        struct TDep{};
-
-        //
-        // Data
-        //
-        template <typename T, typename... D> using tagged = std::tuple<T, D...>;
-        //
-        using Name = tagged<TName, std::string>;
-        namespace version
-        {
-            using namespace tversion;
-            using _val_t = std::uint16_t;
-            using Major = tagged<TMajor, _val_t>;
-            using Minor = tagged<TMinor, _val_t>;
-            using Patch = tagged<TPatch, _val_t>;
-        }
-        using Version = tagged<TVersion,
-            version::Major,
-            version::Minor,
-            version::Patch
-            >;
-
-        using Path = tagged<TPath, std::deque<std::string>>;
-        using Project = tagged<TProject, Name, Version, Path>;
-        using Module = tagged<TModule, Name, Version>;
-        using Comp = tagged<TComp, Name>;
-
-        using ProjectName = tagged<TProject, Name>;
-        using ModuleName = tagged<TModule, Name>;
-        using CompName = tagged<TComp, Name>;
-
-        template <typename A, typename B> using Belong = tagged<TBelong, A, B>;
-
-        template <typename> struct make__tc;
-        template <typename T, typename... D> struct make__tc<tagged<T, D...>>
-        {
-            static tagged<T, D...> call(D&&... data)
-            {
-                return { T{}, std::forward<D>(data)... };
-            }
-        };
-
-        template <typename T, typename... Args>
-        T make(Args&&... args)
-        {
-            return make__tc<T>::call(std::forward<Args>(args)...);
-        }
-    }
-
-    namespace fixture
-    {
-        using namespace model;
-
-        auto Smaragd()
-        {
-            auto major = make<version::Major>(0);
-            auto minor = make<version::Minor>(0);
-            auto patch = make<version::Patch>(0);
-            auto version = make<Version>(
-                    std::move(major),
-                    std::move(minor),
-                    std::move(patch)
-                );
-            return version;
-        }
+        args::Params params = args::parse(argc, argv);
+        auto croot = args::configuration_root(params);
+        std::cout << "configuration root: [" << croot << "]\n";
+        return 0;
     }
 }
 
-int main(int, char**)
-{
-    return 0;
-}
+int main(int argc, char** argv) { return sms::sms(argc, argv); }
