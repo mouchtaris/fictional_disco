@@ -1,6 +1,8 @@
 #pragma once
+#include "lr1.h"
 namespace smaragd
 {
+    using namespace lr1;
     struct sacl_mod;
 
     //
@@ -20,30 +22,30 @@ namespace smaragd
     //  <\d+>
     //
 
-    enum class TokenType { digit, sum, sub, mul, div, semi };
+    enum class TokenType: unsigned long int { digit, sum, sub, mul, div, semi };
 
     //
     // LE GRAMMAR
     //
     struct NumberId;
-    using Number = Rule<NumberId, rhs<Token<TokenType::digit>>>;
+    using Number = Rule<NumberId, Rhs<Token<(unsigned long)TokenType::digit>>>;
 
     struct LiteralId;
-    using Literal = Rule<LiteralId, rhs<NumberId>>;
+    using Literal = Rule<LiteralId, Rhs<NumberId>>;
 
     struct OpId;
     using Op = Rule<OpId,
-        Or< rhs<    Token<  TokenType::sum  >   >,
-        Or< rhs<    Token<  TokenType::sub  >   >,
-        Or< rhs<    Token<  TokenType::mul  >   >,
-            rhs<    Token<  TokenType::div  >   >
+        Or< Rhs<    Token<  (unsigned long)TokenType::sum  >   >,
+        Or< Rhs<    Token<  (unsigned long)TokenType::sub  >   >,
+        Or< Rhs<    Token<  (unsigned long)TokenType::mul  >   >,
+            Rhs<    Token<  (unsigned long)TokenType::div  >   >
         >>>
     >;
 
     struct ExprId;
     using Expr = Rule<ExprId,
-        Or< rhs<    ExprId, OpId, ExprId    >,
-            rhs<    NumberId                >
+        Or< Rhs<    ExprId, OpId, ExprId    >,
+            Rhs<    NumberId                >
         >
     >;
 }

@@ -11,16 +11,16 @@ namespace smaragd
     //
     // TokenType runtime to_s()
     //
-    char const* tt_to_s(TokenType tt)
+    char const* tt_to_s(unsigned long tt)
     {
         switch (tt)
         {
-            case TokenType::digit: return "DIGIT";
-            case TokenType::div: return "DIV";
-            case TokenType::sum: return "SUM";
-            case TokenType::sub: return "SUB";
-            case TokenType::mul: return "MUL";
-            case TokenType::semi: return "SEMI";
+            case (unsigned long)TokenType::digit: return "DIGIT";
+            case (unsigned long)TokenType::div: return "DIV";
+            case (unsigned long)TokenType::sum: return "SUM";
+            case (unsigned long)TokenType::sub: return "SUB";
+            case (unsigned long)TokenType::mul: return "MUL";
+            case (unsigned long)TokenType::semi: return "SEMI";
             default: return "{INVALID}";
         }
     }
@@ -39,7 +39,7 @@ namespace smaragd
     template <> struct tto_s<OpId> { static constexpr auto value = "Op"; };
     template <> struct tto_s<ExprId> { static constexpr auto value = "Expr"; };
 
-    template <TokenType tt> struct tto_s<Token<tt>>
+    template <unsigned long tt> struct tto_s<Token<tt>>
     {
         static void call(std::ostream& os) { os << '<' << tt_to_s(tt) << '>'; }
     };
@@ -56,13 +56,13 @@ namespace smaragd
         }
     };
     //
-    template <> struct tto_s<rhs<>> { static constexpr auto value = ""; };
-    template <typename Id, typename...Ids> struct tto_s<rhs<Id, Ids...>>
+    template <> struct tto_s<Rhs<>> { static constexpr auto value = ""; };
+    template <typename Id, typename...Ids> struct tto_s<Rhs<Id, Ids...>>
     {
         static void call(std::ostream& os)
         {
             tos<Id>(os) << ' ';
-            tos<rhs<Ids...>>(os);
+            tos<Rhs<Ids...>>(os);
         }
     };
     //
@@ -149,7 +149,7 @@ template <> void sacl<smaragd::sacl_mod>()
     static_assert(tto_s_with_value<NumberId>::value, "");
     static_assert(!tto_s_with_call<NumberId>::value, "");
     tos<NumberId>(os);
-    using tt = Token<TokenType::digit>;
+    using tt = Token<(unsigned long)TokenType::digit>;
     to_s<tt> t;
     (void)t;
     static_assert(tto_s_with_call<tt>::value, "");
