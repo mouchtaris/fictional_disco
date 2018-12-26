@@ -9,4 +9,9 @@ namespace typelite
     {
     };
 
+    namespace _Ghost
+    {
+        struct sacl;
+    }
+
 }

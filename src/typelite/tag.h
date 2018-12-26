@@ -4,6 +4,7 @@
 #include <type_traits>
 namespace typelite::tag
 {
+    struct sacl;
 
     /**
      * A tagged value is a plain value associated with a unique Tag Type.
@@ -23,6 +24,7 @@ namespace typelite::tag
         Value
     >;
 
+
     /**
      * Traits for inspecting a Tagged type.
      */
@@ -41,16 +43,19 @@ namespace typelite::tag
         using Tag = _Tag;
         using Value = _Value;
     };
+
     // Quick-access aliases
     template <
         typename Tagged
     >
     using TaggedTraits_Tag = typename TaggedTraits<Tagged>::Tag;
+
     //
     template <
         typename Tagged
     >
     using TaggedTraits_Value = typename TaggedTraits<Tagged>::Value;
+
 
     /**
      * Construct a tagged type by forwarding the given arguments to
@@ -108,6 +113,7 @@ namespace typelite::tag
         value(std::declval<Tagged>())
     );
 
+
     /**
      * Get tuple item I from a tagged type value.
      *
@@ -126,6 +132,7 @@ namespace typelite::tag
     {
         return std::get<I>(value(std::forward<Tagged>(tagged)));
     }
+
     /** And the accompanying result_t */
     template <
         size_t I,
@@ -134,4 +141,5 @@ namespace typelite::tag
     using value_get_result_t = decltype(
         value_get<I>(std::declval<Tagged>())
     );
+
 }
