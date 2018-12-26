@@ -21,7 +21,7 @@ namespace smaragd
             case TokenType::sub: return "SUB";
             case TokenType::mul: return "MUL";
             case TokenType::semi: return "SEMI";
-            default: return "<INVALID>";
+            default: return "{INVALID}";
         }
     }
 

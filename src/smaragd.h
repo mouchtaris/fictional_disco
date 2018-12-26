@@ -22,28 +22,6 @@ namespace smaragd
 
     enum class TokenType { digit, sum, sub, mul, div, semi };
 
-    template <
-        typename...
-    >
-    struct rhs;
-
-    template <
-        typename R0,
-        typename R1
-    >
-    struct Or; // is-a rhs<>
-
-    template <
-        TokenType
-    >
-    struct Token; // is-a RuleId
-
-    template <
-        typename Id,
-        typename rhs
-    >
-    struct Rule;
-
     //
     // LE GRAMMAR
     //
