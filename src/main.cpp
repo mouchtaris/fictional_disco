@@ -4,10 +4,9 @@
 #include "sacl.h"
 #include "tpf.h"
 #include "tpf/example.h"
+#include "../test/test_tpf.h"
 
 #include <iostream>
-
-
 
 
 static constexpr auto nl = '\n';
@@ -21,5 +20,6 @@ int main(int, char**)
         smaragd::sacl_mod
     >();
     tpf::example::print_threes(std::cout);
+    test_tpf();
     return 0;
 }
