@@ -18,6 +18,7 @@ add_library(tpf)
 target_link_libraries(tpf PRIVATE _compile_options)
 target_compile_definitions(tpf PRIVATE Tpf__sacls=)
 target_sources(tpf PRIVATE src/tpf.cpp)
+target_sources(tpf PRIVATE src/tpf/example.cpp)
 
 add_library(typelite)
 target_link_libraries(typelite PRIVATE _compile_options)
