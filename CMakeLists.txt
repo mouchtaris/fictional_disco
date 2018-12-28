@@ -24,6 +24,19 @@ add_library(test_tpf)
 target_link_libraries(test_tpf PRIVATE _compile_options)
 target_link_libraries(test_tpf PRIVATE tpf)
 target_sources(test_tpf PRIVATE test/test_tpf.cpp)
+###
+###
+add_library(tpf_lib)
+target_link_libraries(tpf_lib PRIVATE _compile_options)
+target_link_libraries(tpf_lib PRIVATE tpf)
+target_sources(tpf_lib PRIVATE src/tpf/set.cpp)
+###
+add_library(test_tpf_lib)
+target_link_libraries(test_tpf_lib PRIVATE _compile_options)
+target_link_libraries(test_tpf_lib PRIVATE tpf_lib)
+target_sources(test_tpf_lib PRIVATE test/test_tpf_lib.cpp)
+
+
 
 add_library(typelite)
 target_link_libraries(typelite PRIVATE _compile_options)
@@ -52,4 +65,5 @@ target_link_libraries(main PRIVATE lr1)
 target_link_libraries(main PRIVATE smaragd)
 target_link_libraries(main PRIVATE tpf)
 target_link_libraries(main PRIVATE test_tpf)
+target_link_libraries(main PRIVATE test_tpf_lib)
 target_sources(main PRIVATE src/main.cpp)

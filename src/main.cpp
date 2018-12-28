@@ -5,11 +5,9 @@
 #include "tpf.h"
 #include "tpf/example.h"
 #include "../test/test_tpf.h"
+#include "../test/test_tpf_lib.h"
 
 #include <iostream>
-
-
-static constexpr auto nl = '\n';
 
 int main(int, char**)
 {
@@ -21,5 +19,6 @@ int main(int, char**)
     >();
     tpf::example::print_threes(std::cout);
     test_tpf();
+    test_tpf_lib();
     return 0;
 }
