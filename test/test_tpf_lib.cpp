@@ -21,5 +21,16 @@ void test_tpf_lib()
     RESULT(s1, call1);
 
     using call2 = def<set::_contains, s1, el0>;
-    RESULT(s2, call2);
+    RESULT(b2, call2);
+
+    using call3 = def<set::_contains, s1, el1>;
+    RESULT(b3, call3);
+    static_assert(!b3::value, "");
+
+    using call4 = def<set::_push, s1, el1>;
+    RESULT(s4, call4);
+
+    using call5 = def<set::_contains, s4, el1>;
+    RESULT(b5, call5);
+    static_assert(b5::value, "");
 }
