@@ -83,7 +83,7 @@ struct tpf::def<
         std::disjunction<
             std::conjunction<
                 tpf::is_defined<tpf::def<Cmp, El, V>>,
-                tpf::eval<Cmp, El, V>
+                std::conjunction<tpf::eval<Cmp, El, V>>
             >,
             std::conjunction<
                 tpf::is_defined<tpf::def<tpf::set::_pop, _set>>,
@@ -95,6 +95,32 @@ struct tpf::def<
             >
         >
     ;
+};
+//
+template <
+    typename Cmp,
+    typename V
+>
+struct tpf::def<
+    tpf::set::_contains,
+    tpf::set::Set<Cmp>,
+    V
+>
+{
+    using result = std::false_type;
+};
+
+
+/**
+ * _default_cmp
+ */
+template <
+    typename A,
+    typename B
+>
+struct tpf::def<tpf::set::_default_cmp, A, B>
+{
+    using result = std::is_same<A, B>;
 };
 
 /**
