@@ -1,51 +1,27 @@
 #pragma once
-#include "lr1.h"
+#include "tpf/set.h"
+#include <cstdint>
+#include <array>
 namespace smaragd
 {
-    using namespace lr1;
     struct sacl_mod;
 
-    //
-    // program :=
-    //  expr <semi>
-    //
-    // expr :=
-    //  expr op expr
-    //  | literal
-    //
-    // op := + | - | * | /
-    //
-    // literal :=
-    //  number
-    //
-    // number :=
-    //  <\d+>
-    //
+    namespace N {
+        struct x;
+        struct z;
 
-    enum class TokenType: unsigned long int { digit, sum, sub, mul, div, semi };
+        struct _make_set {
+            using r0 = tpf::eval<tpf::set::init>;
+            using r1 = tpf::eval<tpf::set::add, r0, x>;
+            using r2 = tpf::eval<tpf::set::add, r1, z>;
+            using result = r2;
+        };
 
-    //
-    // LE GRAMMAR
-    //
-    struct NumberId;
-    using Number = Rule<NumberId, Rhs<Token<(unsigned long)TokenType::digit>>>;
+        using set = _make_set::result;
+    }
 
-    struct LiteralId;
-    using Literal = Rule<LiteralId, Rhs<NumberId>>;
-
-    struct OpId;
-    using Op = Rule<OpId,
-        Or< Rhs<    Token<  (unsigned long)TokenType::sum  >   >,
-        Or< Rhs<    Token<  (unsigned long)TokenType::sub  >   >,
-        Or< Rhs<    Token<  (unsigned long)TokenType::mul  >   >,
-            Rhs<    Token<  (unsigned long)TokenType::div  >   >
-        >>>
-    >;
-
-    struct ExprId;
-    using Expr = Rule<ExprId,
-        Or< Rhs<    ExprId, OpId, ExprId    >,
-            Rhs<    NumberId                >
-        >
-    >;
+    namespace Σ {
+        struct S;
+        struct E;
+    }
 }

@@ -30,6 +30,7 @@ add_library(tpf_lib)
 target_link_libraries(tpf_lib PRIVATE _compile_options)
 target_link_libraries(tpf_lib PRIVATE tpf)
 target_sources(tpf_lib PRIVATE src/tpf/set.cpp)
+target_sources(tpf_lib PRIVATE src/tpf/lib.cpp)
 ###
 add_library(test_tpf_lib)
 target_link_libraries(test_tpf_lib PRIVATE _compile_options)

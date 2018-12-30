@@ -70,23 +70,6 @@ namespace tpf
 
 
 
-    template <
-        typename... Bound
-    >
-    struct BoundFront;
-    //
-    template <
-        typename... Bound,
-        typename F,
-        typename... Args
-    >
-    struct def<BoundFront<Bound...>, F, Args...>
-    {
-        using result = typename def<F, Bound..., Args...>::result;
-    };
-
-
-
     /**
      * Evaluate a TPF sequence.
      *
@@ -104,6 +87,14 @@ namespace tpf
             >,
             typename def<Seq...>::result
         >;
+    };
+    //
+    template <
+        typename... Seq
+    >
+    struct eval__tc<def<Seq...>>
+    {
+        using result = typename eval__tc<Seq...>::result;
     };
     //
     template <

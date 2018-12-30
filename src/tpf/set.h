@@ -3,6 +3,8 @@
 #include <type_traits>
 namespace tpf::set
 {
+    struct sacl_mod;
+
     /**
      * Set ADT
      *
@@ -15,7 +17,6 @@ namespace tpf::set
     >
     struct Set;
     struct _default_cmp;
-    struct _contains;
     struct _push;
     struct _pop;
 
@@ -25,8 +26,8 @@ namespace tpf::set
     /** def add set cmp el */
     struct add;
 
-    /** def find set cmp el */
-    struct find;
+    /** def contains set cmp el */
+    struct contains;
 }
 
 /**
@@ -63,7 +64,7 @@ struct tpf::def<
 };
 
 /**
- * _contains
+ * contains
  */
 template <
     typename Cmp,
@@ -72,7 +73,7 @@ template <
     typename V
 >
 struct tpf::def<
-    tpf::set::_contains,
+    tpf::set::contains,
     tpf::set::Set<Cmp, El, Els...>,
     V
 >
@@ -88,7 +89,7 @@ struct tpf::def<
             std::conjunction<
                 tpf::is_defined<tpf::def<tpf::set::_pop, _set>>,
                 tpf::eval<
-                    tpf::set::_contains,
+                    tpf::set::contains,
                     tpf::eval<tpf::set::_pop, _set>,
                     V
                 >
@@ -102,7 +103,7 @@ template <
     typename V
 >
 struct tpf::def<
-    tpf::set::_contains,
+    tpf::set::contains,
     tpf::set::Set<Cmp>,
     V
 >
@@ -141,11 +142,20 @@ struct tpf::def<tpf::set::init>
     using result = tpf::eval<tpf::set::init, tpf::set::_default_cmp>;
 };
 
+/**
+ * add
+ */
 template <
     typename Self,
     typename El
 >
 struct tpf::def<tpf::set::add, Self, El>
 {
-    
+    using result = std::conditional_t<
+        std::conjunction_v<
+            tpf::eval<tpf::set::contains, Self, El>
+        >,
+        Self,
+        tpf::eval<tpf::set::_push, Self, El>
+    >;
 };

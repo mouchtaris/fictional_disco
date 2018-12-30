@@ -1,6 +1,7 @@
 #include "test_tpf.h"
 #include "tpf.h"
 #include "sacl.h"
+#include <iostream>
 namespace
 {
     using namespace tpf;
@@ -12,6 +13,8 @@ template <> struct def<int2float, int> { using result = float; };
 
 void test_tpf()
 {
+    std::cerr << "Testing tpf...\n";
+
     static_assert(!is_defined<def<nothing>>::value, "");
     static_assert(!is_defined<def<nothing, int>>::value, "");
 

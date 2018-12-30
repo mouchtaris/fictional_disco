@@ -4,6 +4,7 @@
 #include "sacl.h"
 #include "tpf.h"
 #include "tpf/example.h"
+#include "tpf/lib.h"
 #include "../test/test_tpf.h"
 #include "../test/test_tpf_lib.h"
 
@@ -15,7 +16,9 @@ int main(int, char**)
     sacls<
         typelite::sacl_mod,
         lr1::sacl_mod,
-        smaragd::sacl_mod
+        smaragd::sacl_mod,
+        tpf::set::sacl_mod,
+        tpf::lib::sacl_mod
     >();
     tpf::example::print_threes(std::cout);
     test_tpf();
